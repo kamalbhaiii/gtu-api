@@ -9,8 +9,9 @@ from dotenv import load_dotenv
 app = FastAPI()
 scrap = Scraper.Scraper.scraper()
 
+envPath = os.path.join(".env")
+load_dotenv(envPath)
 apiKey = os.getenv('API_KEY')
-
 apiKey = np.array(os.getenv('API_KEY').replace(" ", "").split(","))
 
 
