@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-import json
 
 class CircularScraper:
     def scraper():
@@ -20,12 +19,8 @@ class CircularScraper:
                 title = "Title Not Found"
                 link = "Link Not Found"
 
-            eventDict = {
-                "date":date,
+            mainDict[x] = {"date":date,
                 "title":title,
-                "link":link
-            }
-
-            mainDict[x] = eventDict
+                "link":link}
             x+=1
         return mainDict

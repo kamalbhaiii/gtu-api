@@ -18,13 +18,9 @@ class ResultListScraper:
             except Exception:
                 link = "Link not available"
 
-            dataDict = {
-                "date":date,
+            mainDict[x] = {"date":date,
                 "title":title,
-                "link":link
-            }
-
-            mainDict[x] = dataDict
+                "link":link}
             x += 1
 
         return mainDict
