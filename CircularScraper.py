@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import json
 
-class Scraper:
+class CircularScraper:
     def scraper():
         page = requests.get('https://www.gtu.ac.in/Circular.aspx').text
         soup = BeautifulSoup(page, 'lxml')
@@ -15,18 +15,17 @@ class Scraper:
                 titleTag = event.find('div', class_="text")
                 title = titleTag.find('a').contents[0]
                 link = titleTag.find('a')['href'].replace(" ", "%20")
-                eventDict = {
-                "date":date,
-                "title":title,
-                "link":link
-                }
             except Exception:
                 date = "Date Not Found"
                 title = "Title Not Found"
+                link = "Link Not Found"
+
+            eventDict = {
+                "date":date,
+                "title":title,
+                "link":link
+            }
 
             mainDict[x] = eventDict
             x+=1
-        # mainDictJSON = json.dumps(mainDict)
-        # with open("data.json", "w") as fd:
-        #     fd.write(mainDictJSON)
         return mainDict
