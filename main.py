@@ -28,11 +28,19 @@ async def res_unauthorized(response : Response):
 
 @app.get("/{api_key}/", status_code=200)
 async def initial_auth_page(api_key : str, response : Response):
-    if api_key in apiKey:
+    if api_key in apiKey and (not(api_key) == "public"):
         response.status_code = status.HTTP_200_OK
         idx = np.where(api_key == apiKey)
         return {"head":f"Welcome to the GTU API, {apiName[idx[0][0]]}",
             "end-points":[f"{api_key}/circular", f"{api_key}/circular/<--circular_number-->", f"{api_key}/result"],
+            "total-number-of-circular":len(scrap.keys()),
+            "total-number-of-result-declared":len(resultScrap.keys()),
+            "last-updated":time.asctime()}
+    elif api_key in apiKey and api_key == "public":
+        response.status_code = status.HTTP_200_OK
+        idx = np.where(api_key == apiKey)
+        return {"head":f"Welcome to the GTU API, {apiName[idx[0][0]]}",
+            "end-points":f"{api_key}/circular",
             "total-number-of-circular":len(scrap.keys()),
             "total-number-of-result-declared":len(resultScrap.keys()),
             "last-updated":time.asctime()}
@@ -56,7 +64,7 @@ async def circular_auth_page(api_key : str, response : Response):
 
 @app.get("/{api_key}/circular/{circular_number}/", status_code= 200)
 async def cirNo_auth_page(api_key : str, circular_number : int, response : Response):
-    if api_key in apiKey:
+    if api_key in apiKey and (not(api_key) == "public"):
         response.status_code = status.HTTP_200_OK
         return {"circular_number":circular_number, "circular_data":scrap[circular_number]}
     else:
@@ -67,7 +75,7 @@ async def cirNo_auth_page(api_key : str, circular_number : int, response : Respo
 
 @app.get("/{api_key}/result/", status_code= 200)
 async def resList_auth_page(api_key : str, response : Response):
-    if api_key in apiKey:
+    if api_key in apiKey and (not(api_key) == "public"):
         response.status_code = status.HTTP_200_OK
         return resultScrap
     else:
