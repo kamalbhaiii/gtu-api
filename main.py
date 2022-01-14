@@ -42,7 +42,7 @@ async def initial_auth_page(api_key : str, response : Response):
         response.status_code = status.HTTP_200_OK
         idx = np.where(api_key == apiKey)
         return {"head":f"Welcome to the GTU API, {apiName[idx[0][0]]}",
-            "end-points":[f"{api_key}/circular", f"{api_key}/circular/<--circular_number-->", f"{api_key}/result"],
+            "end-points":[f"{api_key}/circular", f"{api_key}/circular/<--circular_number-->", f"{api_key}/circular/date", f"{api_key}/circular/date?circular_date={todaysDate}", f"{api_key}/result"],
             "total-number-of-circular":len(scrap.keys()),
             "total-number-of-result-declared":len(resultScrap.keys()),
             "last-updated":time.asctime()}
