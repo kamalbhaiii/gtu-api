@@ -7,7 +7,7 @@ class CircularScraper:
         soup = BeautifulSoup(page, 'lxml')
         event_list = soup.find_all("div", class_ = "event-list")
         mainDict = {}
-        x = 1
+        x = 0
         for event in event_list:
             try:
                 date = event.find("div", class_="date-in").text.replace("\n", "")
@@ -24,3 +24,5 @@ class CircularScraper:
                 "link":link}
             x+=1
         return mainDict
+
+# print(CircularScraper.scraper())
