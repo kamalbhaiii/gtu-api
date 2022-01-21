@@ -14,14 +14,12 @@ class CircularScraper:
                 titleTag = event.find('div', class_="text")
                 title = titleTag.find('a').contents[0]
                 link = titleTag.find('a')['href'].replace(" ", "%20")
-            except Exception:
-                date = "Date Not Found"
-                title = "Title Not Found"
-                link = "Link Not Found"
 
-            mainDict[x] = {"date":date,
+                mainDict[x] = {"date":date,
                 "title":title,
                 "link":link}
+            except Exception as e:
+                print(f"Exception: {e}")
             x+=1
         return mainDict
 
